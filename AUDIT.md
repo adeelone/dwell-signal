@@ -103,3 +103,5 @@ Those features need provider selection, credentials, privacy decisions, and a ba
 - Expanded the suite from 7 to 15 tests before final browser QA.
 
 Static demo readiness is PASS. Multi-user production readiness remains PARTIAL until the backend/provider work listed above is built.
+
+Publication is complete at `adeelone/dwell-signal`. The production deployment attempt reached Vercel CLI 58.4.4 but stopped because the locally configured token is invalid; no live URL is claimed.

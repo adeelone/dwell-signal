@@ -26,4 +26,4 @@ This file records the final verified state after the production and humanization
 | Real automated tests for core flows                                               | PASS    | Fifteen tests cover rendered role flows, storage, routing, comfort, and security configuration.              |
 | Desktop and mobile browser QA                                                     | PARTIAL | Component behavior is verified; the in-app browser webview did not attach for a final visual pass.           |
 | Production-ready multi-user backend                                               | PARTIAL | Deliberately excluded: real auth, database, payment processing, and server-side AI require cloud services.   |
-| Deployment and live verification                                                  | PENDING | Updated after the publication and deployment attempt.                                                        |
+| Deployment and live verification                                                  | PARTIAL | Private GitHub publication succeeded; live deployment is blocked by an invalid local Vercel token.           |
