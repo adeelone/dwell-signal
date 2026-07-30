@@ -6,9 +6,9 @@ This repository is an original project. It does not share source, branding, cred
 
 ## What works
 
-- Owner portfolio view with rent collection, payment reliability, requests, technician matching, and a dispatch calendar
+- Owner portfolio view with rent collection, payment reliability, technician matching, reassignment, and time-slot scheduling
 - Technician workbench with trade filters, qualified job offers, estimated pay, availability, scheduling, and completion
-- Resident portal with a payment demo, maintenance intake, local request classification, availability windows, technician preference, and request tracking
+- Resident portal with a payment receipt demo, maintenance intake, local request classification, availability windows, technician preference, and request tracking
 - Ten service trades: HVAC, plumbing, electrical, appliance, general repair, inspection/appraisal, landscaping, pest control, locksmith, and life safety
 - Building comfort, alerts, spaces, work orders, resident inbox, reports, CSV export, and settings
 - Browser-local persistence. The demo works without an account, API key, or hosted database.
@@ -31,11 +31,12 @@ Then open the local URL Vite prints.
 ```powershell
 npm.cmd test
 npm.cmd run lint
+npm.cmd run typecheck
 npm.cmd run build
 ```
 
 ## Data and payments
 
-Demo changes are saved in `localStorage`. “Pay rent” records a demo interaction only; it does not move money. No payment processor, messaging provider, cloud database, or model provider is connected.
+Demo changes are saved in versioned `localStorage` records and can be reset from Settings. “Record demo payment” creates a local receipt only; it does not move money. No payment processor, messaging provider, cloud database, or model provider is connected.
 
 See [SECURITY.md](SECURITY.md), [PRIVACY.md](PRIVACY.md), and [AUDIT.md](AUDIT.md) for production boundaries.

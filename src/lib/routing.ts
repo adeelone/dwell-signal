@@ -17,7 +17,10 @@ export function classifyRequest(text: string): { trade: Trade; confidence: numbe
   return hit ? { trade: hit[0], confidence: 94 } : { trade: "General repair", confidence: 68 };
 }
 
-export function rankTechnicians(request: Pick<ServiceRequest, "trade" | "availability" | "preferredTechnician">, technicians: Technician[]): Technician[] {
+export function rankTechnicians(
+  request: Pick<ServiceRequest, "trade" | "availability" | "preferredTechnician">,
+  technicians: Technician[],
+): Technician[] {
   return technicians
     .filter((tech) => tech.trades.includes(request.trade))
     .map((tech) => ({

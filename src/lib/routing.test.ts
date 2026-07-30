@@ -9,7 +9,10 @@ describe("request routing", () => {
     expect(classifyRequest("smoke alarm keeps chirping").trade).toBe("Life safety");
   });
   it("uses qualification, availability, workload, and preference when ranking", () => {
-    const ranked = rankTechnicians({ trade: "HVAC", availability: ["Mon 9–1"], preferredTechnician: "Marcus Hill" }, technicians);
+    const ranked = rankTechnicians(
+      { trade: "HVAC", availability: ["Mon 9–1"], preferredTechnician: "Marcus Hill" },
+      technicians,
+    );
     expect(ranked[0].name).toBe("Marcus Hill");
     expect(ranked.every((tech) => tech.trades.includes("HVAC"))).toBe(true);
   });

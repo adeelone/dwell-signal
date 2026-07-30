@@ -7,6 +7,7 @@ coverage/
 *.log
 .DS_Store
 .vite/
+.vercel/
 *.tsbuildinfo
 vite.config.js
 vite.config.d.ts

@@ -1,20 +1,41 @@
 import {
-  Bell, Building2, ChartNoAxesColumnIncreasing, ChevronDown, ClipboardList,
-  Gauge, Menu, MessageCircle, Settings, Users, X,
+  Bell,
+  Building2,
+  ChartNoAxesColumnIncreasing,
+  ChevronDown,
+  ClipboardList,
+  Gauge,
+  Menu,
+  MessageCircle,
+  Settings,
+  Users,
+  X,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import type { NavKey, Role } from "../types";
 import { Logo } from "./Logo";
 
-const nav = [
-  ["overview", "Overview", Gauge],
-  ["spaces", "Spaces", Building2],
-  ["alerts", "Alerts", Bell],
-  ["work-orders", "Work orders", ClipboardList],
-  ["residents", "Residents", Users],
-  ["reports", "Reports", ChartNoAxesColumnIncreasing],
-  ["settings", "Settings", Settings],
-] as const;
+const navByRole = {
+  owner: [
+    ["overview", "Portfolio", Gauge],
+    ["spaces", "Properties", Building2],
+    ["alerts", "Alerts", Bell],
+    ["work-orders", "Work orders", ClipboardList],
+    ["residents", "Residents", Users],
+    ["reports", "Reports", ChartNoAxesColumnIncreasing],
+    ["settings", "Settings", Settings],
+  ],
+  technician: [
+    ["overview", "Work queue", Gauge],
+    ["work-orders", "Work orders", ClipboardList],
+    ["reports", "Job history", ChartNoAxesColumnIncreasing],
+    ["settings", "Settings", Settings],
+  ],
+  resident: [
+    ["overview", "Home", Gauge],
+    ["settings", "Preferences", Settings],
+  ],
+} as const;
 
 interface ShellProps {
   active: NavKey;
@@ -27,8 +48,18 @@ interface ShellProps {
   children: ReactNode;
 }
 
-export function Shell({ active, onNavigate, alertCount, workOrderCount, buildingName, role, onRoleChange, children }: ShellProps) {
+export function Shell({
+  active,
+  onNavigate,
+  alertCount,
+  workOrderCount,
+  buildingName,
+  role,
+  onRoleChange,
+  children,
+}: ShellProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const nav = navByRole[role];
   return (
     <div className="app-shell">
       <header className="topbar">
@@ -36,13 +67,26 @@ export function Shell({ active, onNavigate, alertCount, workOrderCount, building
           {menuOpen ? <X /> : <Menu />}
         </button>
         <Logo />
-        <button className="building-picker"><Building2 /> <span>{buildingName}</span><ChevronDown /></button>
+        <button className="building-picker">
+          <Building2 /> <span>{buildingName}</span>
+          <ChevronDown />
+        </button>
         <div className="role-switch" aria-label="Portal view">
-          {(["owner", "technician", "resident"] as Role[]).map((item) => <button key={item} className={role === item ? "active" : ""} onClick={() => onRoleChange(item)}>{item}</button>)}
+          {(["owner", "technician", "resident"] as Role[]).map((item) => (
+            <button key={item} className={role === item ? "active" : ""} onClick={() => onRoleChange(item)}>
+              {item}
+            </button>
+          ))}
         </div>
         <div className="topbar-spacer" />
-        <span className="local-status"><i /> Demo data · saved locally</span>
-        <button className="profile"><span>AM</span><b>Alex Morgan</b><ChevronDown /></button>
+        <span className="local-status">
+          <i /> Demo data · saved locally
+        </span>
+        <button className="profile">
+          <span>AM</span>
+          <b>Alex Morgan</b>
+          <ChevronDown />
+        </button>
       </header>
       <aside className={menuOpen ? "sidebar open" : "sidebar"}>
         <nav aria-label="Primary navigation">
@@ -52,14 +96,25 @@ export function Shell({ active, onNavigate, alertCount, workOrderCount, building
               <button
                 key={key}
                 className={active === key ? "active" : ""}
-                onClick={() => { onNavigate(key); setMenuOpen(false); }}
+                onClick={() => {
+                  onNavigate(key);
+                  setMenuOpen(false);
+                }}
               >
-                <Icon /><span>{label}</span>{count > 0 && <em>{count}</em>}
+                <Icon />
+                <span>{label}</span>
+                {count > 0 && <em>{count}</em>}
               </button>
             );
           })}
         </nav>
-        <div className="sidebar-help"><MessageCircle /><div><b>Need context?</b><span>Every alert explains what changed.</span></div></div>
+        <div className="sidebar-help">
+          <MessageCircle />
+          <div>
+            <b>Demo workspace</b>
+            <span>Actions stay in this browser until you reset them.</span>
+          </div>
+        </div>
       </aside>
       <main className="page">{children}</main>
     </div>

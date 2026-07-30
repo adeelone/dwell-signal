@@ -2,7 +2,17 @@ export type Severity = "critical" | "attention" | "info";
 export type NavKey = "overview" | "spaces" | "alerts" | "work-orders" | "residents" | "reports" | "settings";
 export type Role = "owner" | "technician" | "resident";
 
-export type Trade = "HVAC" | "Plumbing" | "Electrical" | "Appliance" | "General repair" | "Inspection" | "Landscaping" | "Pest control" | "Locksmith" | "Life safety";
+export type Trade =
+  | "HVAC"
+  | "Plumbing"
+  | "Electrical"
+  | "Appliance"
+  | "General repair"
+  | "Inspection"
+  | "Landscaping"
+  | "Pest control"
+  | "Locksmith"
+  | "Life safety";
 
 export interface ServiceRequest {
   id: string;
@@ -17,6 +27,7 @@ export interface ServiceRequest {
   availability: string[];
   preferredTechnician?: string;
   assignedTechnician?: string;
+  scheduledSlot?: string;
   status: "triage" | "offered" | "accepted" | "scheduled" | "in-progress" | "completed";
   estimatedPay: number;
 }
